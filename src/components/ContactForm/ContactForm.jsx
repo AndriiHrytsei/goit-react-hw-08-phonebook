@@ -1,26 +1,20 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
+import { nanoid } from 'nanoid';
 import css from './ContactForm.module.css';
 export default function ContactForm({ onFormSubmit }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  // function handleNameChange (e) {
-  //   setName(e.currentTarget.value)
-  // }
-  // function handleNumberChange (e) {
-  //   setNumber(e.currentTarget.value)
-  // }
-
   function handleFormSubmit() {
-    onFormSubmit({ name: name, number: number });
+    onFormSubmit({ id: nanoid(), name: name, number: number });
   }
 
   return (
     <form
       className={css.contactForm}
-      onSubmit={(e) => {
-        e.preventDefault()
+      onSubmit={e => {
+        e.preventDefault();
         handleFormSubmit();
       }}
     >
