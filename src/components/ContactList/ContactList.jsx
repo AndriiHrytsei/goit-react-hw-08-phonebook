@@ -1,4 +1,5 @@
-import css from './ContactList.module.css';
+import Contact from 'components/Contact/Contact';
+
 export default function ContactList({ items, filterVal, deleteContact }) {
   return (
     <ul className="contactList">
@@ -10,14 +11,7 @@ export default function ContactList({ items, filterVal, deleteContact }) {
         })
         .map(({ id, name, number }) => {
           return (
-            <li className={css.contact} key={id}>
-              <p>
-                {name}: {number}
-              </p>
-              <button type="button" onClick={() => deleteContact(id)}>
-                Delete
-              </button>
-            </li>
+            <Contact contactName={name} contactNumber={number} contactId={id} deleteContactFunc={deleteContact} />
           );
         })}
     </ul>

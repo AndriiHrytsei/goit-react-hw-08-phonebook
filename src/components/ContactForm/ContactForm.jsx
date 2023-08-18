@@ -1,10 +1,12 @@
-/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import css from './ContactForm.module.css';
+import { useDispatch } from 'react-redux';
+
 export default function ContactForm({ onFormSubmit }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const dispatch = useDispatch()
 
   function handleFormSubmit() {
     onFormSubmit({ id: nanoid(), name: name, number: number });
