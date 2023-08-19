@@ -1,25 +1,19 @@
-import { useState } from 'react';
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 import css from './ContactForm.module.css';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { addContact } from '../../redux/contactsSlice';
 
-export default function ContactForm({ onFormSubmit }) {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-  // const dispatch = useDispatch()
+export default function ContactForm() {
+  const dispatch = useDispatch();
 
-  function handleFormSubmit() {
-    onFormSubmit({ id: nanoid(), name: name, number: number });
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    dispatch(addContact(form.elements.name.value, form.elements.number.value));
   }
 
   return (
-    <form
-      className={css.contactForm}
-      onSubmit={e => {
-        e.preventDefault();
-        handleFormSubmit();
-      }}
-    >
+    <form className={css.contactForm} onSubmit={handleFormSubmit}>
       <label htmlFor="name">Name</label>
       <input
         type="text"
@@ -28,9 +22,6 @@ export default function ContactForm({ onFormSubmit }) {
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
         required
-        onChange={e => {
-          setName(e.currentTarget.value);
-        }}
       />
       <label htmlFor="number">Number</label>
       <input
@@ -40,7 +31,6 @@ export default function ContactForm({ onFormSubmit }) {
         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
         required
-        onChange={e => setNumber(e.currentTarget.value)}
       />
       <button type="submit">Add contact</button>
     </form>

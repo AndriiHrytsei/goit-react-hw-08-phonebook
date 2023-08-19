@@ -1,9 +1,12 @@
 import Contact from 'components/Contact/Contact';
+import { useSelector } from 'react-redux';
+import { getContacts } from '../../redux/selectors';
 
-export default function ContactList({ items, filterVal, deleteContact }) {
+export default function ContactList({ filterVal, }) {
+  const contacts = useSelector(getContacts)
   return (
     <ul className="contactList">
-      {items
+      {contacts
         .filter(contact => {
           return filterVal.toLowerCase() === ''
             ? contact
@@ -11,7 +14,7 @@ export default function ContactList({ items, filterVal, deleteContact }) {
         })
         .map(({ id, name, number }) => {
           return (
-            <Contact contactName={name} contactNumber={number} contactId={id} deleteContactFunc={deleteContact} />
+            <Contact contactName={name} contactNumber={number} contactId={id} key={id}/>
           );
         })}
     </ul>
