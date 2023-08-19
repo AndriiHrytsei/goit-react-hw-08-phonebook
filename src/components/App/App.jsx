@@ -33,7 +33,7 @@ export default function App() {
   return (
     <>
       <h1>Phonebook</h1>
-      <ContactForm/>
+      <ContactForm />
       <h1>Contacts</h1>
       <SearchFilter searchChange={e => setFilter(e.currentTarget.value)} />
       <ContactList
