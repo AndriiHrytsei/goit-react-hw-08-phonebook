@@ -1,4 +1,5 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { Notify } from 'notiflix';
 // import { Notify } from 'notiflix';
 
 const contactsInitialState = [
@@ -14,7 +15,13 @@ const contactsSlice = createSlice({
   reducers: {
     addContact: {
       reducer(state, { payload }) {
-        state.push(payload);
+        const existingName = state.some(contact => contact.name === payload.name)
+        const existingNumber = state.some(contact => contact.number === payload.number)
+        if (existingName || existingNumber) {
+          Notify.failure("Contact already exists")
+        } else {
+          state.push(payload);
+        }
       },
       prepare(name, number) {
         return {

@@ -10,15 +10,15 @@ export default function ContactList({ filterVal }) {
         .filter(contact => {
           return filterVal.toLowerCase() === ''
             ? contact
-            : contact.name.toLowerCase().includes(filterVal);
+            : contact.name.toLowerCase().includes(filterVal.toLowerCase());
         })
         .map(({ id, name, number }) => {
           return (
             <Contact
+              key={id}
               contactName={name}
               contactNumber={number}
               contactId={id}
-              key={id}
             />
           );
         })}
