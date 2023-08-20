@@ -20,7 +20,7 @@ const contactsSlice = createSlice({
         if (existingName || existingNumber) {
           Notify.failure("Contact already exists")
         } else {
-          state.push(payload);
+          state.unshift(payload);
         }
       },
       prepare(name, number) {
