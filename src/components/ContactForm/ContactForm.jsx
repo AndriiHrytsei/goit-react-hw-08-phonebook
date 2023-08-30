@@ -9,7 +9,13 @@ export default function ContactForm() {
   function handleFormSubmit(e) {
     e.preventDefault();
     const form = e.target;
-    dispatch(addContact({name: form.elements.name.value, phone: form.elements.number.value, id: nanoid()}));
+    dispatch(
+      addContact({
+        name: form.elements.name.value,
+        phone: form.elements.number.value,
+        id: nanoid(),
+      })
+    );
   }
 
   return (

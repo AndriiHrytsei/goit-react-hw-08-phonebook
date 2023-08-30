@@ -14,15 +14,13 @@ export default function App() {
   const isLoading = useSelector(getIsLoading);
   const error = useSelector(getError);
 
-console.log(filter);
-
   useEffect(() => {
     dispatch(searchByName(filter));
   }, [dispatch, filter]);
-  
+
   useEffect(() => {
     dispatch(fetchContacts());
-  }, [dispatch])
+  }, [dispatch]);
 
   return (
     <>

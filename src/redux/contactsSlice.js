@@ -90,7 +90,7 @@ const contactsSlice = createSlice({
       );
 
       if (existingName || existingNumber) {
-        Notify.failure("Contact already exists")
+        Notify.failure('Contact already exists');
       } else {
         state.contacts.items.unshift(action.payload);
         state.filteredContacts.unshift(action.payload);

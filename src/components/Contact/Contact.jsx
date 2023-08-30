@@ -7,7 +7,7 @@ export default function Contact({ contactName, contactNumber, contactId }) {
   const dispatch = useDispatch();
 
   const handleDelete = () => dispatch(deleteContact(contactId));
-  
+
   return (
     <li className={css.contact}>
       <p>
