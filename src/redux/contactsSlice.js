@@ -24,39 +24,6 @@ const contactsSlice = createSlice({
   name: 'contacts',
   initialState: contactsInitialState,
   reducers: {
-    // addContact: {
-    //   reducer(state, { payload }) {
-    //     const existingName = state.filteredContacts.some(
-    //       contact => contact.name === payload.name
-    //     );
-    //     const existingNumber = state.filteredContacts.some(
-    //       contact => contact.number === payload.number
-    //     );
-    //     if (existingName || existingNumber) {
-    //       Notify.failure('Contact already exists');
-    //     } else {
-    //       state.filteredContacts.unshift(payload);
-    //       state.contacts.items.unshift(payload);
-    //     }
-    //   },
-    //   prepare(name, number) {
-    //     return {
-    //       payload: {
-    //         id: nanoid(),
-    //         name,
-    //         number,
-    //       },
-    //     };
-    //   },
-    // },
-    // deleteContact(state, action) {
-    //   state.contacts.items = state.contacts.items.filter(
-    //     contact => contact.name !== action.payload
-    //   );
-    //   state.filteredContacts = state.filteredContacts.filter(
-    //     contact => contact.name !== action.payload
-    //   );
-    // },
     searchByName(state, action) {
       const filteredContacts = state.contacts.items.filter(contact =>
         contact.name.toLowerCase().includes(action.payload.toLowerCase())
