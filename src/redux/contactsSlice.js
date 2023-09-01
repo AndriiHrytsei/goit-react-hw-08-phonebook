@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchContacts, addContact, deleteContact } from './operations';
-import { Notify } from 'notiflix';
 
 const handleRejected = (state, action) => {
   state.contacts.isLoading = false;
@@ -49,19 +48,8 @@ const contactsSlice = createSlice({
     [addContact.fulfilled](state, action) {
       state.contacts.isLoading = false;
       state.contacts.error = null;
-      const existingName = state.filteredContacts.some(
-        contact => contact.name === action.payload.name
-      );
-      const existingNumber = state.filteredContacts.some(
-        contact => contact.phone === action.payload.phone
-      );
-
-      if (existingName || existingNumber) {
-        Notify.failure('Contact already exists');
-      } else {
-        state.contacts.items.unshift(action.payload);
-        state.filteredContacts.unshift(action.payload);
-      }
+      state.contacts.items.unshift(action.payload);
+      state.filteredContacts.unshift(action.payload);
     },
     [deleteContact.pending]: handlePending,
     [deleteContact.rejected]: handleRejected,
