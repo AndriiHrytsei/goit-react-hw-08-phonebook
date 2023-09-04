@@ -4,11 +4,9 @@ import { addContact } from '../../redux/operations';
 import { Notify } from 'notiflix';
 import { getFilteredContacts } from 'redux/selectors';
 
-
-
 export default function ContactForm() {
   const dispatch = useDispatch();
-  const contacts = useSelector(getFilteredContacts)
+  const contacts = useSelector(getFilteredContacts);
 
   function handleFormSubmit(e) {
     e.preventDefault();

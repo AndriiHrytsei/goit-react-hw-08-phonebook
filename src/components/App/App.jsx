@@ -28,7 +28,7 @@ export default function App() {
       <ContactForm />
       <h1>Contacts</h1>
       <SearchFilter searchChange={e => setFilter(e.currentTarget.value)} />
-      {isLoading && !error && <b>Request in progress...</b>}
+      {isLoading && !error && <p>Request in progress...</p>}
       <ContactList />
     </>
   );
