@@ -22,14 +22,23 @@ export default function App() {
     dispatch(fetchContacts());
   }, [dispatch]);
 
+  const renderLoadingOrError = () => {
+    if (isLoading) {
+      return <p>Loading...</p>;
+    } else if (error) {
+      return <p>{error}</p>;
+    } else {
+      return <ContactList />;
+    }
+  };
+
   return (
     <>
       <h1>Phonebook</h1>
       <ContactForm />
       <h1>Contacts</h1>
       <SearchFilter searchChange={e => setFilter(e.currentTarget.value)} />
-      {isLoading && !error && <p>Request in progress...</p>}
-      <ContactList />
+      {renderLoadingOrError()}
     </>
   );
 }
