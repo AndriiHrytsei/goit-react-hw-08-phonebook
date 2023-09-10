@@ -1,44 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import ContactForm from 'components/ContactForm/ContactForm';
-import SearchFilter from 'components/SearchFilter/SearchFilter';
-import ContactList from 'components/ContactList/ContactList';
-import { useDispatch, useSelector } from 'react-redux';
-import { searchByName } from '../../redux/contactsSlice';
-import { getIsLoading, getError } from '../../redux/selectors';
-import { fetchContacts } from '../../redux/operations';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+// import { lazy } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { useAuth } from 'hooks';
+import { refreshUser } from 'redux/auth/operations';
+// import { startTransition } from 'react';
+import Navigation from 'components/Navigation/Navigation';
+import RegisterPage from 'pages/RegisterPage';
+
+// const ContactForm = lazy(() => import('components/ContactForm/ContactForm'))
+// const ContactList = lazy(() => import('components/ContactForm/ContactList'))
+// const SearchFilter = lazy(() => import('components/ContactForm/SearchFilter'))
+// const Navigation = lazy(() => import('components/Navigation/Navigation'));
 
 export default function App() {
-  const [filter, setFilter] = useState('');
   const dispatch = useDispatch();
-
-  const isLoading = useSelector(getIsLoading);
-  const error = useSelector(getError);
+  const { isRefreshing } = useAuth();
 
   useEffect(() => {
-    dispatch(searchByName(filter));
-  }, [dispatch, filter]);
-
-  useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshUser());
   }, [dispatch]);
 
-  const renderLoadingOrError = () => {
-    if (isLoading) {
-      return <p>Loading...</p>;
-    } else if (error) {
-      return <p>{error}</p>;
-    } else {
-      return <ContactList />;
-    }
-  };
-
-  return (
-    <>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <h1>Contacts</h1>
-      <SearchFilter searchChange={e => setFilter(e.currentTarget.value)} />
-      {renderLoadingOrError()}
-    </>
+  return isRefreshing ? (
+    <p>Refreshing user...</p>
+  ) : (
+    <Routes>
+      <Route path="/" element={<Navigation />}>
+        <Route index element={<RegisterPage />}/>
+      </Route>
+    </Routes>
   );
 }
