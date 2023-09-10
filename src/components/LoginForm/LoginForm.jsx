@@ -7,10 +7,12 @@ export default function LoginForm() {
   const handleFormSubmit = e => {
     e.preventDefault();
     const form = e.target;
-    dispatch({
-      email: form.elements.emailField.value,
-      password: form.elements.passwordField.value,
-    });
+    dispatch(
+      login({
+        email: form.elements.emailField.value,
+        password: form.elements.passwordField.value,
+      })
+    );
   };
 
   return (
